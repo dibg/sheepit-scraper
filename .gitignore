@@ -1,0 +1,6 @@
+index.html
+configuration/credentials.py
+data/*
+templates/*
+.idea
+*__pycache__*
