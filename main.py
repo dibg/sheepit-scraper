@@ -6,19 +6,18 @@ from functions.list_modifiers import unique_list
 from functions.html_generator import *
 
 
-# session = create_session(USERNAME, PASSWORD)  # TODO: if session exist try login if fails create new session
-# store_as_bin("session", session)
+session = create_session(USERNAME, PASSWORD)  # TODO: if session exist try login if fails create new session
+store_as_bin("session", session)
 
+# session = retrieve_bin("session")
 while True:
     stored_data = retrieve_json("data")  # TODO: if file not exist create it
-    session = retrieve_bin("session")
     current_data = scrape_data(session)
     print(current_data)
 
     unique_data = unique_list(stored_data + current_data)
     store_as_json("data", unique_data)
     generate_html(unique_data)
-    # print(unique_data)
 
     sleep(600)
 
