@@ -15,12 +15,15 @@ At the moment is not very useful, is rather a working example that need more wor
 * Dashboard with sorting and monitoring graphs
 
 ## Installation & Execution
-This is writen unix system in mind. In windows please use wsl to follow along: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-* $ git clone https://github.com/dibg/sheepit-scraper.git
-* $ cd sheepit-scraper
+This project is writen in python 3.x with linux environment in mind. In windows please use wsl to follow along: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+* Clone the project `git clone https://github.com/dibg/sheepit-scraper.git`
+* Change directory `cd sheepit-scraper`
 * You will need to provide your login information into credentials.py
-* Install dependencies by executing $ python -m pip install -r requirements.txt
-* Run $ python main.py
+* Install dependencies by executing `python3 -m pip install -r requirements.txt`
+* In case your system doesn't have pip and/or python 3.x you will have to install it otherwise the previous command will fail. 
+Debian/Ubuntu `sudo apt update; sudo apt install python3-pip` Arch/Manjaro `sudo pacman -Syy; sudo pacman -S python-pip`
+. Finally update pip: `python3 -m pip install --upgrade pip`
+* Run the project `python3 main.py`
 * See the results by opening the index.html
 
 ## Known issues
