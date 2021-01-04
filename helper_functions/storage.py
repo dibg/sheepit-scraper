@@ -1,10 +1,17 @@
 import json
 import pickle
 import sys
+import os
 from configuration.scraper_config import STORAGE_PATH
 
 
+def create_path_if_not_exist(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
 def store_as_json(var_name, var):
+    create_path_if_not_exist(STORAGE_PATH)
     filename = STORAGE_PATH + var_name + ".json"
     with open(filename, "w") as fp:
         json.dump(var, fp)
@@ -18,6 +25,7 @@ def retrieve_json(var_name):
 
 
 def store_as_bin(var_name, var):
+    create_path_if_not_exist(STORAGE_PATH)
     sys.setrecursionlimit(10000)
     filename = STORAGE_PATH + var_name + ".bin"
     with open(filename, "wb") as fp:
