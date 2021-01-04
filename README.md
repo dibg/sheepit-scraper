@@ -20,11 +20,15 @@ This project is writen in python 3.x with linux environment in mind. In windows 
 * Change directory `cd sheepit-scraper`
 * You will need to provide your login information into credentials.py
 * Install dependencies by executing `python3 -m pip install -r requirements.txt`
-* In case your system doesn't have pip and/or python 3.x you will have to install it otherwise the previous command will fail. 
-Debian/Ubuntu `sudo apt update; sudo apt install python3-pip` Arch/Manjaro `sudo pacman -Syy; sudo pacman -S python-pip`
-. Finally, update pip: `python3 -m pip install --upgrade pip`
+* In case your system doesn't have pip and/or python 3.x you will have to install it otherwise the previous command will fail.   
+  Debian/Ubuntu: `sudo apt update; sudo apt install python3-pip`  
+  Arch/Manjaro: `sudo pacman -Syy; sudo pacman -S python-pip`  
+  Finally, update pip: `python3 -m pip install --upgrade pip`
 * Run the project `python3 main.py`
-* See the results by opening the index.html
+* See the results by opening the index.html  
+* To update the version use `git pull`  
+  Windows users under WSL may need to also use: `git config core.filemode false` to solve file permissions problems
+
 
 ## Known issues
 * Project duplication if the size of the project is different
@@ -39,7 +43,7 @@ Debian/Ubuntu `sudo apt update; sudo apt install python3-pip` Arch/Manjaro `sudo
 
 ## Feedback and collaboration
 Feedback is welcome in any stage of development.
-Even better if you wish to contribute.
-Before you push make sure to ignore data/* and credentials.py from the commit:
-`git update-index --skip-worktree ./data/*`
+Even better if you wish to contribute.  
+Before you push make sure to ignore data/* and credentials.py from the commit:  
+`git update-index --skip-worktree ./data/*`  
 `git update-index --skip-worktree ./configuration/credentials.py`
