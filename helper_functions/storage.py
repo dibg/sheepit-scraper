@@ -14,7 +14,7 @@ def store_as_json(var_name, var):
     create_path_if_not_exist(STORAGE_PATH)
     filename = STORAGE_PATH + var_name + ".json"
     with open(filename, "w") as fp:
-        json.dump(var, fp)
+        json.dump(var, fp, indent=2)
 
 
 def retrieve_json(var_name):
