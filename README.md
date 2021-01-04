@@ -15,7 +15,7 @@ At the moment is not very useful, is rather a working example that need more wor
 * Dashboard with sorting and monitoring graphs
 
 ## Installation & Execution
-This project is writen in python 3.x with linux environment in mind. In windows please use wsl to follow along: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+This project is writen in python 3.x with a Linux environment in mind. For Windows please use WSL to follow along: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 * Clone the project `git clone https://github.com/dibg/sheepit-scraper.git`
 * Change directory `cd sheepit-scraper`
 * You will need to provide your login information into credentials.py
@@ -27,7 +27,7 @@ This project is writen in python 3.x with linux environment in mind. In windows 
 * Run the project `python3 main.py`
 * See the results by opening the index.html  
 * To update the version use `git pull`  
-  Windows users under WSL may need to also use: `git config core.filemode false` to solve file permissions problems
+  Windows users under WSL may need use: `git config core.filemode false` to solve 
 
 
 ## Known issues
@@ -42,8 +42,7 @@ This project is writen in python 3.x with linux environment in mind. In windows 
 4. Polishing
 
 ## Feedback and collaboration
-Feedback is welcome in any stage of development.
+Feedback is welcome in any stage of development.  
 Even better if you wish to contribute.  
-Before you push make sure to ignore data/* and credentials.py from the commit:  
-`git update-index --skip-worktree ./data/*`  
+Before you push make sure to ignore credentials.py from the commit:  
 `git update-index --skip-worktree ./configuration/credentials.py`
