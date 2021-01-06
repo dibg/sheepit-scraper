@@ -24,7 +24,7 @@ def load_stored_data():
     return stored_data
 
 
-def valid_login_session():
+def get_valid_login_session():
     try:
         session = retrieve_bin("session")
     except FileNotFoundError:

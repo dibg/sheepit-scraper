@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup as bs
-from configuration.scraper_config import PROJECT_URL
+from configuration.scraper_config import PROJECT_URL, FAILED_LOGIN_MESSAGE
 from helper_functions.storage import store_as_bin
 from scraper.extract import *
 
@@ -9,10 +9,7 @@ def scrape_data(session):
     soup = bs(project_page, "html.parser")
     # store_as_bin("soup", soup)  # DEBUG
     tr = soup.find_all("tr")
-    if tr == []:
-        h4 = soup.find_all("h4")[0].text
-        if h4 == "Please sign in":
-            raise ConnectionRefusedError("Session is not valid: {}".format(h4))
+    stop_if_login_is_unsuccessful(soup, tr)
 
     results = []
     for element in tr:
@@ -21,13 +18,21 @@ def scrape_data(session):
         size = extract_size(element)
         frames = extract_frames_number(element)
         devices = extract_enabled_devices(element)
+
         results.append({
-            "Username": username,
-            "Scene": scene,
-            "Frames": frames,
-            "Devices": devices,
-            "Size": size
+            "username": username,
+            "scene": scene,
+            "frames": frames,
+            "devices": devices,
+            "size": size
         })
     return results
+
+
+def stop_if_login_is_unsuccessful(soup, tr):
+    if tr == []:
+        h4 = soup.find_all("h4")[0].text  # TODO: h4 could be extracted to the configuration file
+        if h4 == FAILED_LOGIN_MESSAGE:
+            raise ConnectionRefusedError("Session is not valid: {}".format(h4))
 
 
