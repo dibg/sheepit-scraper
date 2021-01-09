@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <h1>Data Endpoint</h1>
+    <title>Sheepit Scraper</title>
 {% endblock %}
 
 {% block body %}
-    <p>Use /v1/raw_data to receive raw json data</p>
-    <p>Use /v1/db_data to insert and receive db_data</p>
+    <h1>Available endpoints:</h1>
+    {% for route in available_routes %}
+    <a href="{{ app_url + route }}"> {{ route }}</a>
+    <br/>
+    {% endfor %}
 {% endblock %}

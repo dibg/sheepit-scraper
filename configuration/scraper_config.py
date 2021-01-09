@@ -1,5 +1,8 @@
 from configuration.credentials import USERNAME, PASSWORD
 
+
+APP_URL = "http://127.0.0.1:5000"
+
 URL = "https://www.sheepit-renderfarm.com/"
 LOGIN_URL = URL + "ajax.php"
 REFERER = URL + "account.php?mode=login"

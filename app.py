@@ -3,8 +3,10 @@ from flask import Flask, jsonify, render_template
 from sqlalchemy import exc
 from flask_sqlalchemy import SQLAlchemy
 from configuration.credentials import POSTGRESQL_URI
+from configuration.scraper_config import APP_URL
 from scraper.common_session_tasks import scrape_current_data, load_stored_data, get_valid_login_session
 from helper_functions.storage import store_as_json, retrieve_json
+from helper_functions.file_filter import extract_routes_from_file
 
 
 app = Flask(__name__)
@@ -30,10 +32,19 @@ class Data(db.Model):
                 }
         return dict
 
+    def __init__(self, dict):
+        self.username = dict["username"]
+        self.scene = dict["scene"]
+        self.frames = dict["frames"]
+        self.devices = dict["devices"]
+        self.size = dict["size"]
 
-@app.route("/")  # SearchMe
+
+@app.route("/")
 def index():
-    return render_template("index.html")
+    available_routes = extract_routes_from_file("app.py")
+    print(available_routes)
+    return render_template("index.html", app_url=APP_URL, available_routes=available_routes)
 
 
 @app.route("/v1/snapshot")
@@ -41,6 +52,15 @@ def single_data_snapshot():
     session = get_valid_login_session()
     current_data = scrape_current_data(session)
     return jsonify(current_data)
+
+
+@app.route("/v1/snapshot_to_db")
+def snapshot_to_db():
+    snapshot = single_data_snapshot()
+    for entry in snapshot.json:
+        data = Data(entry)
+        insert_data(data)
+    return "ok"
 
 
 @app.route("/v1/db_data")
@@ -63,30 +83,36 @@ def raw_data():
 
 @app.route("/v1/load_stored_data_to_db")
 def load_data():
-    data = load_stored_data()
-    for x in data:
-        a = Data()
-        a.username = x["username"]
-        a.scene = x["scene"]
-        a.frames = x["frames"]
-        a.devices = x["devices"]
-        a.size = x["size"]
-        try:
-            b = Data.query.filter_by(username=a.username, scene=a.scene, frames=a.frames).first()
-            if b is not None:
-                db.session.delete(b)
-                db.session.commit()
-            db.session.add(a)
-            db.session.commit()
-        except exc.IntegrityError as e:
-            print(e.args[0])
-            db.session.rollback()
+    json_data = load_stored_data()
+    for entry in json_data:
+        data = Data(entry)
+        insert_data(data)
     return "ok"
+
+
+def insert_data(entry):
+    try:
+        db_entry = Data.query.filter_by(username=entry.username, scene=entry.scene, frames=entry.frames).first()
+        if db_entry is not None:
+            db.session.delete(db_entry)
+            db.session.commit()
+        db.session.add(entry)
+        db.session.commit()
+    except exc.IntegrityError as e:
+        print(e.args[0])
+        db.session.rollback()
 
 
 @app.route("/v1/db_create")
 def create_db():
     db.create_all()
+    return "ok"
+
+
+@app.route("/v1/db_delete")
+def delete_db():
+    Data.query.delete()
+    db.session.commit()
     return "ok"
 
 
