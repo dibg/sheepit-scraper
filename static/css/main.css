@@ -1,10 +1,10 @@
 body {
-    margin: 3rem;
     font-family: Consolas;
+    margin: 3rem;
 }
 
 table {
-  font-family: arial, sans-serif;
+  font-family: Consolas;
   border-collapse: collapse;
   width: 100%;
 }
@@ -12,9 +12,13 @@ table {
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 4px;
+}
+
+th {
+    cursor: pointer;
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #eaeaea;
 }

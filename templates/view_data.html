@@ -5,25 +5,30 @@
 {% endblock %}
 
 {% block body %}
+    <script src="/static/js/sortTable.js"></script>
     <h1> {{ title }}:</h1>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Scene</th>
-            <th>Frames</th>
-            <th>Devices</th>
-            <th>Size</th>
-            <th>Date</th>
-        </tr>
-        {% for entry in data %}
-        <tr>
-            <th><a href="{{ block_url + '?username=' + entry['username'] }}">{{ entry["username"] }}</a></th>
-            <th>{{ entry["scene"] }}</th>
-            <th>{{ entry["frames"] }}</th>
-            <th>{{ entry["devices"] }}</th>
-            <th>{{ entry["size"] }}</th>
-            <th>{{ entry["date_created"] }}</th>
-        </tr>
-        {% endfor %}
+    <table id="projectsData">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Username</th>
+                <th onclick="sortTable(1)">Scene</th>
+                <th onclick="sortTable(2)">Frames</th>
+                <th onclick="sortTable(3)">Devices</th>
+                <th onclick="sortTable(4)">Size</th>
+                <th onclick="sortTable(5)">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+            <tr>
+                <td><a href="{{ block_url + '?username=' + entry['username'] }}">{{ entry["username"] }}</a></td>
+                <td>{{ entry["scene"] }}</td>
+                <td>{{ entry["frames"] }}</td>
+                <td>{{ entry["devices"] }}</td>
+                <td>{{ entry["size"] }}</td>
+                <td>{{ entry["date_created"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

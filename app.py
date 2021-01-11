@@ -14,6 +14,7 @@ from helper_functions.file_filter import extract_routes_from_file
 # TODO: document structure: header footer menu
 # TODO: filter database entries base on username, scene and date
 # TODO: handle exception for lost connection
+# FEATURE: user login page for blocking with different user than the one you scrape with
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -76,7 +77,7 @@ def block():
     if not username:
         return "Direct access to this link is not supported."
     block_user(get_valid_login_session(), username)
-    return "User: " + username + " blocked"
+    return "User " + username + " is blocked"
 
 
 @app.route("/v1/snapshot")
