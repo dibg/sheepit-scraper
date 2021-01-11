@@ -1,4 +1,4 @@
-from configuration.scraper_config import REFERER_BLOCK, BLOCK_PAYLOAD, POST_URL, BLOCK_HEADERS
+from configuration.scraper_config import BLOCK_PAYLOAD, POST_URL, BLOCK_HEADERS
 
 
 def block_user(session, username):
