@@ -38,3 +38,9 @@ def retrieve_bin(var_name):
     with open(filename, "rb") as fp:
         var = pickle.load(fp)
     return var
+
+
+def read_file(filename):
+    fp = open(filename, "r")
+    text = fp.read()
+    return text

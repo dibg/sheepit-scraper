@@ -1,30 +1,25 @@
 from bs4 import BeautifulSoup as bs
 from configuration.scraper_config import PROJECT_URL, FAILED_LOGIN_MESSAGE
 from helper_functions.storage import store_as_bin
-from scraper.extract import *
+from scraper.extract import Extract
 
 
 def scrape_data(session):
     project_page = session.get(PROJECT_URL).text
     soup = bs(project_page, "html.parser")
-    # store_as_bin("soup", soup)  # DEBUG
     tr = soup.find_all("tr")
     stop_if_login_is_unsuccessful(soup, tr)
+    # store_as_bin("soup", soup)  # DEBUG
 
     results = []
     for element in tr:
-        scene = extract_scene_name(element)
-        username = extract_username(element)
-        size = extract_size(element)
-        frames = extract_frames_number(element)
-        devices = extract_enabled_devices(element)
-
+        extract = Extract(element)
         results.append({
-            "username": username,
-            "scene": scene,
-            "frames": frames,
-            "devices": devices,
-            "size": size
+            "username": extract.username(),
+            "scene": extract.scene_name(),
+            "frames": extract.frames_number(),
+            "devices": extract.enabled_devices(),
+            "size": extract.size()
         })
     return results
 

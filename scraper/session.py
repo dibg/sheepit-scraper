@@ -1,6 +1,6 @@
 import sys
 import requests
-from configuration.scraper_config import LOGIN_URL, HEADERS, PAYLOAD
+from configuration.scraper_config import POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD
 from helper_functions.storage import store_as_bin
 
 
@@ -15,7 +15,7 @@ def create_session(login_url, headers, payload):
 
 def create_and_store_session():
     try:
-        session = create_session(LOGIN_URL, HEADERS, PAYLOAD)
+        session = create_session(POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD)
     except ConnectionRefusedError as cre:
         print(cre)
         sys.exit(1)

@@ -1,11 +1,19 @@
 from configuration.credentials import USERNAME, PASSWORD
 
 URL = "https://www.sheepit-renderfarm.com/"
-LOGIN_URL = URL + "ajax.php"
-REFERER = URL + "account.php?mode=login"
+POST_URL = URL + "ajax.php"
+REFERER_LOGIN = URL + "account.php?mode=login"
+REFERER_BLOCK = URL + "account.php?mode=profile"
 PROJECT_URL = URL + "index.php?show=projects"
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84.0"
 
-PAYLOAD = {
+FAILED_LOGIN_MESSAGE = "Please sign in"
+
+LOGIN_HEADERS = {"User-Agent": USER_AGENT, "Origin": URL, "Referer": REFERER_LOGIN}
+
+BLOCK_HEADERS = {"User-Agent": USER_AGENT, "Origin": URL, "Referer": REFERER_BLOCK}
+
+LOGIN_PAYLOAD = {
     "account_login": "account_login",
     "do_login": "do_login",
     "login": USERNAME,
@@ -13,10 +21,9 @@ PAYLOAD = {
     "timezone": "Europe/Athens"
 }
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36",
-    "Origin": URL, "Referer": REFERER}
-
-FAILED_LOGIN_MESSAGE = "Please sign in"
+BLOCK_PAYLOAD = {
+    "action": "add_blocked_owner",
+    "login": ""
+}
 
 STORAGE_PATH = "./data/"
