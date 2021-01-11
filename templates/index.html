@@ -7,7 +7,7 @@
 {% block body %}
     <h1>Available endpoints:</h1>
     {% for route in available_routes %}
-    <a href="{{ app_url + route }}"> {{ route }}</a>
+    <a href="{{ route }}"> {{ route }}</a>
     <br/>
     {% endfor %}
 {% endblock %}

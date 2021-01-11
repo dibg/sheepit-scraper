@@ -1,15 +1,22 @@
 from datetime import datetime
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from sqlalchemy import exc
 from flask_sqlalchemy import SQLAlchemy
 from configuration.credentials import POSTGRESQL_URI
-from configuration.scraper_config import APP_URL
+from scraper.block import block_user
 from scraper.common_session_tasks import scrape_current_data, load_stored_data, get_valid_login_session
 from helper_functions.storage import store_as_json, retrieve_json
 from helper_functions.file_filter import extract_routes_from_file
 
+# TODO: automatically scrape data
+# TODO: return redirect
+# TODO: return proper status in case a function fails
+# TODO: document structure: header footer menu
+# TODO: filter database entries base on username, scene and date
+# TODO: handle exception for lost connection
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = POSTGRESQL_URI
 db = SQLAlchemy(app)
 
@@ -43,15 +50,41 @@ class Data(db.Model):
 @app.route("/")
 def index():
     available_routes = extract_routes_from_file("app.py")
-    print(available_routes)
-    return render_template("index.html", app_url=APP_URL, available_routes=available_routes)
+    return render_template("index.html", available_routes=available_routes)
+
+
+@app.route("/view_all")
+def view_all():
+    data = db_data().json
+    return render_data(data, "All Available Data")
+
+
+@app.route("/view_current")
+def view_current():
+    data = single_data_snapshot().json
+    return render_data(data, "Current Data")
+
+
+def render_data(data, title):
+    block_url = "/block"
+    return render_template("view_data.html", data=data, title=title, block_url=block_url)
+
+
+@app.route("/block")
+def block():
+    username = request.args.get('username')
+    if not username:
+        return "Direct access to this link is not supported."
+    block_user(get_valid_login_session(), username)
+    return "User: " + username + " blocked"
 
 
 @app.route("/v1/snapshot")
 def single_data_snapshot():
     session = get_valid_login_session()
     current_data = scrape_current_data(session)
-    return jsonify(current_data)
+    data_json = jsonify(current_data)
+    return data_json
 
 
 @app.route("/v1/snapshot_to_db")
@@ -64,12 +97,11 @@ def snapshot_to_db():
 
 
 @app.route("/v1/db_data")
-def query_data():
+def db_data():
     data = Data.query.all()
     dict = []
     for datum in data:
         dict.append(datum.as_dict())
-
     data_json = jsonify(dict)
     return data_json
 

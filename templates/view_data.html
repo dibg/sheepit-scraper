@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block body %}
+    <h1> {{ title }}:</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Scene</th>
+            <th>Frames</th>
+            <th>Devices</th>
+            <th>Size</th>
+            <th>Date</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <th><a href="{{ block_url + '?username=' + entry['username'] }}">{{ entry["username"] }}</a></th>
+            <th>{{ entry["scene"] }}</th>
+            <th>{{ entry["frames"] }}</th>
+            <th>{{ entry["devices"] }}</th>
+            <th>{{ entry["size"] }}</th>
+            <th>{{ entry["date_created"] }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
