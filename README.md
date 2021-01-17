@@ -25,7 +25,7 @@ This project is writen in python 3.x with a Linux environment in mind. For Windo
   Debian/Ubuntu: `sudo apt update; sudo apt install python3-pip`  
   Arch/Manjaro: `sudo pacman -Syy; sudo pacman -S python-pip`  
   Finally, update pip: `python3 -m pip install --upgrade pip`
-* Run the project `python3 main.py`
+* Run the project `python3 app.py`
 * The first time you will need to create the database by visiting this link http://127.0.0.1:5000/v1/db_create
 * Explore the application functions at http://127.0.0.1:5000/
 * To update the version use `git pull`  
