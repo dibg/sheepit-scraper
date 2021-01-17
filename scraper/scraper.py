@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup as bs
 from configuration.scraper_config import PROJECT_URL, FAILED_LOGIN_MESSAGE
 from helper_functions.storage import store_as_bin
 from scraper.extract import Extract
+from scraper.session import create_and_store_session
 
 
 def scrape_data(session):
@@ -31,3 +32,11 @@ def stop_if_login_is_unsuccessful(soup, tr):
             raise ConnectionRefusedError("Session is not valid: {}".format(h4))
 
 
+def scrape_current_data(session):
+    try:
+        current_data = scrape_data(session)
+    except ConnectionRefusedError:
+        print("Creating new session")
+        session = create_and_store_session()
+        current_data = scrape_data(session)
+    return current_data

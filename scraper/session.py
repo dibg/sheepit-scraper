@@ -1,7 +1,7 @@
 import sys
 import requests
 from configuration.scraper_config import POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD
-from helper_functions.storage import store_as_bin
+from helper_functions.storage import store_as_bin, retrieve_bin
 
 
 def create_session(login_url, headers, payload):
@@ -20,4 +20,13 @@ def create_and_store_session():
         print(cre)
         sys.exit(1)
     store_as_bin("session", session)
+    return session
+
+
+def get_valid_login_session():
+    try:
+        session = retrieve_bin("session")
+    except FileNotFoundError:
+        create_and_store_session()
+        session = retrieve_bin("session")
     return session

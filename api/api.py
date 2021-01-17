@@ -1,9 +1,11 @@
+from flask import jsonify, request
 from flask_init import app
-from helper_functions.database import Data
-from flask import jsonify
+from helper_functions.database import Data, db
 from helper_functions.database import insert_data
-from scraper.common_session_tasks import scrape_current_data, load_stored_data, get_valid_login_session
-from helper_functions.storage import store_as_json, retrieve_json
+from helper_functions.storage import retrieve_json, load_or_if_not_exits_create_json_file
+from scraper.block import block_user
+from scraper.scraper import scrape_current_data
+from scraper.session import get_valid_login_session
 
 
 @app.route("/v1/snapshot")
@@ -42,7 +44,7 @@ def raw_data():
 
 @app.route("/v1/load_stored_data_to_db")
 def load_data():
-    json_data = load_stored_data()
+    json_data = load_or_if_not_exits_create_json_file("data")
     for entry in json_data:
         data = Data(entry)
         insert_data(data)
@@ -60,3 +62,12 @@ def delete_db():
     Data.query.delete()
     db.session.commit()
     return "ok"
+
+
+@app.route("/v1/block")
+def block():
+    username = request.args.get('username')
+    if not username:
+        return "Direct access to this link is not supported."
+    block_user(get_valid_login_session(), username)
+    return "User " + username + " is blocked"
