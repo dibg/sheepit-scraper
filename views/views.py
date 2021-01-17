@@ -1,10 +1,11 @@
 from configuration.scraper_config import VISIT_PROFILE_URL
 from flask_init import app
-from api.api import single_data_snapshot, db_data, most_projects
+from api.api import single_data_snapshot, db_data, projects_per_user, projects_by
 from flask import render_template
 from helper_functions.file_filter import extract_routes_from_file
 
 BLOCK_URL = "/v1/block?username="
+PROJECTS_BY_URL = "/view_projects_by/"
 
 
 @app.route("/")
@@ -27,13 +28,22 @@ def view_current_projects():
 
 
 @app.route("/view_projects_per_user")
-def view_most_projects():
-    data = most_projects().json
+def view_projects_per_user():
+    data = projects_per_user().json
     return render_template("view_projects_per_user.html",
                            data=data,
                            title="Projects per user",
                            block_url=BLOCK_URL,
-                           visit_profile_url=VISIT_PROFILE_URL)
+                           visit_profile_url=VISIT_PROFILE_URL,
+                           projects_by_url=PROJECTS_BY_URL)
+
+
+@app.route("/view_projects_by/<username>")
+def view_projects_by(username):
+    data = projects_by(username).json
+    return render_template("view_projects_by.html",
+                           data=data,
+                           title=username+"'s projects")
 
 
 def render_projects(data, title):
@@ -41,4 +51,5 @@ def render_projects(data, title):
                            data=data,
                            title=title,
                            block_url=BLOCK_URL,
-                           visit_profile_url=VISIT_PROFILE_URL)
+                           visit_profile_url=VISIT_PROFILE_URL,
+                           projects_by_url=PROJECTS_BY_URL)

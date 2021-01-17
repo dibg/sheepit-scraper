@@ -10,22 +10,16 @@
     <table id="projectsData">
         <thead>
             <tr>
-                <th>Block</th>
-                <th>Profile</th>
-                <th onclick="sortTable(2)">Username</th>
-                <th onclick="sortTable(3)">Scene</th>
-                <th onclick="sortTable(4)">Frames</th>
-                <th onclick="sortTable(5)">Devices</th>
-                <th onclick="sortTable(6)">Size</th>
-                <th onclick="sortTable(7)">Date</th>
+                <th onclick="sortTable(0)">Scene</th>
+                <th onclick="sortTable(1)">Frames</th>
+                <th onclick="sortTable(2)">Devices</th>
+                <th onclick="sortTable(3)">Size</th>
+                <th onclick="sortTable(4)">Date</th>
             </tr>
         </thead>
         <tbody>
             {% for entry in data %}
             <tr>
-                <td><a href="{{ block_url + entry['username'] }}">Block</a></td>
-                <td><a href="{{ visit_profile_url + entry['username'] }}">Profile</a></td>
-                <td><a href="{{ projects_by_url + entry['username'] }}">{{ entry["username"] }}</a></td>
                 <td>{{ entry["scene"] }}</td>
                 <td>{{ entry["frames"] }}</td>
                 <td>{{ entry["devices"] }}</td>

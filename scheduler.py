@@ -4,7 +4,7 @@ from configuration.scraper_config import SCRAPING_INTERVAL_MINUTES
 import requests
 
 
-def init_scheduler():
+def start_background_scraping():
     def task():
         requests.get("http://127.0.0.1:5000/v1/snapshot_to_db")
     scheduler = BackgroundScheduler()

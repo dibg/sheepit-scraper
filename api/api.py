@@ -2,6 +2,7 @@ from flask import jsonify, request
 from flask_init import app
 from helper_functions.database import Data, db
 from helper_functions.database import insert_data
+from helper_functions.list_modifiers import jsonify_dict
 from helper_functions.storage import retrieve_json, load_or_if_not_exits_create_json_file
 from scraper.block import block_user
 from scraper.scraper import scrape_current_data
@@ -12,25 +13,27 @@ from scraper.session import get_valid_login_session
 def single_data_snapshot():
     session = get_valid_login_session()
     current_data = scrape_current_data(session)
-    data_json = jsonify(current_data)
-    return data_json
+    return jsonify(current_data)
 
 
 @app.route("/v1/db_data")
 def db_data():
     data = Data.query.all()
-    dict = [datum.as_dict() for datum in data]
-    data_json = jsonify(dict)
-    return data_json
+    return jsonify_dict(data)
 
 
 @app.route("/v1/projects_per_user")
-def most_projects():
+def projects_per_user():
     q = "SELECT username, COUNT(username) as cnt FROM data GROUP BY username ORDER BY cnt DESC"
     data = db.engine.execute(q)
     dict = [({"username": datum[0], "cnt": datum[1]}) for datum in data]
-    data_json = jsonify(dict)
-    return data_json
+    return jsonify(dict)
+
+
+@app.route("/v1/projects_by/<username>")
+def projects_by(username):
+    projects = Data.query.filter_by(username=username)
+    return jsonify_dict(projects)
 
 
 @app.route("/v1/block")
@@ -45,8 +48,7 @@ def block():
 @app.route("/v1/raw_data")
 def raw_data():
     data = retrieve_json("data")
-    data_json = jsonify(data)
-    return data_json
+    return jsonify(data)
 
 
 @app.route("/v1/snapshot_to_db")
