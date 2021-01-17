@@ -6,6 +6,7 @@ USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:84.0) Gecko/20100101 Firefox/84
 FAILED_LOGIN_MESSAGE = "Please sign in"
 
 PROJECT_URL = URL + "index.php?show=projects"
+VISIT_PROFILE_URL = URL + "account.php?mode=profile&login="  # + username
 
 REFERER_LOGIN = URL + "account.php?mode=login"
 LOGIN_HEADERS = {"User-Agent": USER_AGENT, "Origin": URL, "Referer": REFERER_LOGIN}

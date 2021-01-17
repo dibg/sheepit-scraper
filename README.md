@@ -5,7 +5,7 @@ A bare-bones sheepit scraper to keep basic project statistics.
 At the moment basic functionalities are supported like scraping, saving the data and blocking users.
 
 ## Ideal goals of the project:
-* Keep record of the users that abuse the service by adding multiple projects
+* Keep record of the users that abuse the service by adding multiple projects [SS-2]
 * Find the optimal time to add your projects for fast rendering
 * Block abusing users by denying rendering their projects [SS-2]
 
@@ -32,7 +32,7 @@ This project is writen in python 3.x with a Linux environment in mind. For Windo
 
 ## Known issues
 * ~~Project duplication if the size of the project is different~~ [SS-2]
-* Sorting is needed for the results to be useful   
+* ~~Sorting is needed for the results to be useful~~ [SS-2]   
 * ~~After 7 days login cookies will expire and there is not yet a automatic process to renew them~~ [SS-1]
 * Lost connection is not handled leading to execution errors
 

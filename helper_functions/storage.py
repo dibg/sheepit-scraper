@@ -51,7 +51,7 @@ def load_or_if_not_exits_create_json_file(json_file):
         stored_data = retrieve_json(json_file)
     except FileNotFoundError:
         print("Creating new data file")
-        empty_json = []
-        store_as_json(json_file, empty_json)
+        empty_file = []
+        store_as_json(json_file, empty_file)
         stored_data = retrieve_json(json_file)
     return stored_data

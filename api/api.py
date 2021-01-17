@@ -16,23 +16,30 @@ def single_data_snapshot():
     return data_json
 
 
-@app.route("/v1/snapshot_to_db")
-def snapshot_to_db():
-    snapshot = single_data_snapshot()
-    for entry in snapshot.json:
-        data = Data(entry)
-        insert_data(data)
-    return "ok"
-
-
 @app.route("/v1/db_data")
 def db_data():
     data = Data.query.all()
-    dict = []
-    for datum in data:
-        dict.append(datum.as_dict())
+    dict = [datum.as_dict() for datum in data]
     data_json = jsonify(dict)
     return data_json
+
+
+@app.route("/v1/projects_per_user")
+def most_projects():
+    q = "SELECT username, COUNT(username) as cnt FROM data GROUP BY username ORDER BY cnt DESC"
+    data = db.engine.execute(q)
+    dict = [({"username": datum[0], "cnt": datum[1]}) for datum in data]
+    data_json = jsonify(dict)
+    return data_json
+
+
+@app.route("/v1/block")
+def block():
+    username = request.args.get('username')
+    if not username:
+        return "Direct access to this link is not supported."
+    block_user(get_valid_login_session(), username)
+    return "User " + username + " is blocked"
 
 
 @app.route("/v1/raw_data")
@@ -40,6 +47,15 @@ def raw_data():
     data = retrieve_json("data")
     data_json = jsonify(data)
     return data_json
+
+
+@app.route("/v1/snapshot_to_db")
+def snapshot_to_db():
+    snapshot = single_data_snapshot()
+    for entry in snapshot.json:
+        data = Data(entry)
+        insert_data(data)
+    return "ok"
 
 
 @app.route("/v1/load_stored_data_to_db")
@@ -62,12 +78,3 @@ def delete_db():
     Data.query.delete()
     db.session.commit()
     return "ok"
-
-
-@app.route("/v1/block")
-def block():
-    username = request.args.get('username')
-    if not username:
-        return "Direct access to this link is not supported."
-    block_user(get_valid_login_session(), username)
-    return "User " + username + " is blocked"
