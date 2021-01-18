@@ -1,10 +1,12 @@
+import os
 from views.views import *
 from scheduler import *
 
 
 if __name__ == "__main__":
-    start_background_scraping()
     app.debug = True
+    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        start_background_scraping()
     app.run(host="0.0.0.0")
 
 
