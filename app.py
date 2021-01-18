@@ -1,12 +1,10 @@
-import os
 from views.views import *
-from scheduler import *
+from scraper.scheduler import *
 
 
 if __name__ == "__main__":
     app.debug = True
-    if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-        start_background_scraping()
+    start_background_scraping()
     app.run(host="0.0.0.0")
 
 
@@ -19,3 +17,4 @@ if __name__ == "__main__":
 # TODO: user login page for blocking with different user than the one you scrape with
 # TODO: better way to store scraper_configuration (class)
 # TODO: dark theme
+# TODO: show if user is new to the service
