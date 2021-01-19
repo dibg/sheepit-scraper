@@ -24,7 +24,11 @@ def db_data():
 
 @app.route("/v1/projects_per_user")
 def projects_per_user():
-    q = "SELECT username, COUNT(username) as cnt FROM data GROUP BY username ORDER BY cnt DESC"
+    last_hours = request.args.get('last_hours')
+    if last_hours is not None:
+        q = "SELECT username, COUNT(username) as cnt FROM data WHERE date_created >= NOW() - '{} hours'::INTERVAL  GROUP BY username ORDER BY cnt DESC".format(last_hours)
+    else:
+        q = "SELECT username, COUNT(username) as cnt FROM data GROUP BY username ORDER BY cnt DESC"
     data = db.engine.execute(q)
     dict = [({"username": datum[0], "cnt": datum[1]}) for datum in data]
     return jsonify(dict)

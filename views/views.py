@@ -17,7 +17,7 @@ def index():
 
 @app.route("/view_all_projects")
 def view_all_projects():
-    data = db_data().json  # .json is a property of jsonify tha t holds the data
+    data = db_data().json  # .json is a property of jsonify that holds the data
     return render_projects(data, "All Available Data")
 
 

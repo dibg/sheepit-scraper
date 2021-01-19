@@ -8,7 +8,6 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0")
 
 
-# TODO: filter database by date
 # TODO: return redirect
 # TODO: return proper status in case a function fails
 # TODO: handle exception for lost connection
