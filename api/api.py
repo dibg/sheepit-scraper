@@ -1,4 +1,6 @@
 from flask import jsonify, request
+from sqlalchemy import and_
+from datetime import datetime, timedelta
 from flask_init import app
 from helper_functions.database import Data, db
 from helper_functions.database import insert_data
@@ -23,10 +25,11 @@ def db_data():
 
 
 @app.route("/v1/projects_per_user")
-def projects_per_user():
+def projects_per_user(last_hours=None):
     last_hours = request.args.get('last_hours')
     if last_hours is not None:
-        q = "SELECT username, COUNT(username) as cnt FROM data WHERE date_created >= NOW() - '{} hours'::INTERVAL  GROUP BY username ORDER BY cnt DESC".format(last_hours)
+        q = "SELECT username, COUNT(username) as cnt FROM data WHERE date_created >= NOW() - " \
+            "'{} hours'::INTERVAL  GROUP BY username ORDER BY cnt DESC".format(last_hours)
     else:
         q = "SELECT username, COUNT(username) as cnt FROM data GROUP BY username ORDER BY cnt DESC"
     data = db.engine.execute(q)
@@ -35,8 +38,13 @@ def projects_per_user():
 
 
 @app.route("/v1/projects_by/<username>")
-def projects_by(username):
-    projects = Data.query.filter_by(username=username)
+def projects_by(username, last_hours=None):
+    last_hours = request.args.get('last_hours')
+    if last_hours is not None:
+        projects = Data.query.filter(and_(Data.date_created >= datetime.today() - timedelta(hours=int(last_hours)),
+                                     Data.username == username))
+    else:
+        projects = Data.query.filter_by(username=username)
     return jsonify_dict(projects)
 
 
