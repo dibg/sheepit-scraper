@@ -1,28 +1,31 @@
 body {
-    font-family: Consolas;
-    margin: 3rem;
+    font-family: Consolas, serif;
     color: #bdbdbd;
     background-color: #282c34;
+    margin: 0;
 }
 
 table {
-  font-family: Consolas;
-  border-collapse: collapse;
-  width: 100%;
+    font-family: Consolas, serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 td, th {
-  border: 1px solid #393939;
-  text-align: left;
-  padding: 4px;
+    border: 1px solid #393939;
+    text-align: left;
+    padding: 4px;
+    line-height: 20px;
 }
 
 th {
     cursor: pointer;
+    line-height: 30px;
+    font-size: 18px;
 }
 
 tr:nth-child(even) {
-  background-color: #2b323d;
+    background-color: #2b323d;
 }
 
 a:visited {
@@ -38,4 +41,32 @@ a:link {
 a:hover {
     color: #c9aa88;
     text-decoration: underline;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #181a1f;
+}
+
+.navbar a {
+  float: left;
+  color: #bdbdbd;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #c9aa88;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #c9aa88;
+  color: white;
+}
+
+.page {
+    margin: 2rem;
 }

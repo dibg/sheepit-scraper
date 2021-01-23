@@ -19,8 +19,12 @@ def single_data_snapshot():
 
 
 @app.route("/v1/db_data")
-def db_data():
-    data = Data.query.all()
+def db_data(last_hours=None):
+    last_hours = request.args.get('last_hours')
+    if last_hours is not None:
+        data = Data.query.filter(Data.date_created >= datetime.today() - timedelta(hours=int(last_hours)))
+    else:
+        data = Data.query.all()
     return jsonify_dict(data)
 
 

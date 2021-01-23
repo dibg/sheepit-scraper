@@ -8,6 +8,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0")
 
 
+# TODO: show active page on navbar
 # TODO: decouple api from views
 # TODO: document structure: header footer menu
 # TODO: return redirect
@@ -17,3 +18,5 @@ if __name__ == "__main__":
 # TODO: user login page for blocking with different user than the one you scrape with
 # TODO: better way to store scraper_configuration (class)
 # TODO: show if user is new to the service
+# TODO: second db for fail over
+# TODO: backup db as json and restore

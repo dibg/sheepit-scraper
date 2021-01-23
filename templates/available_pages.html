@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Sheepit Scraper</title>
+{% endblock %}
+
+{% block body %}
+    <h2>Available pages:</h2>
+    {% for route in available_views %}
+    <a href="{{ route }}"> {{ route }}</a>
+    <br/>
+    {% endfor %}
+    <h2>Available endpoints:</h2>
+    {% for route in available_api_routes %}
+    <a href="{{ route }}"> {{ route }}</a>
+    <br/>
+    {% endfor %}
+{% endblock %}
