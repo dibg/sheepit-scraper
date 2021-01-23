@@ -1,6 +1,8 @@
 body {
     font-family: Consolas;
     margin: 3rem;
+    color: #bdbdbd;
+    background-color: #282c34;
 }
 
 table {
@@ -10,7 +12,7 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 1px solid #393939;
   text-align: left;
   padding: 4px;
 }
@@ -20,5 +22,20 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #eaeaea;
+  background-color: #2b323d;
+}
+
+a:visited {
+    color: #9b87a5;
+    text-decoration: none;
+}
+
+a:link {
+    color: #bdbdbd;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c9aa88;
+    text-decoration: underline;
 }

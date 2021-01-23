@@ -16,5 +16,4 @@ if __name__ == "__main__":
 # TODO: rate limit user block to avoid ban
 # TODO: user login page for blocking with different user than the one you scrape with
 # TODO: better way to store scraper_configuration (class)
-# TODO: dark theme
 # TODO: show if user is new to the service
