@@ -1,3 +1,12 @@
+@app.route("/v1/block")
+def block():
+    username_to_block = request.args.get('username')
+    if not username_to_block:
+        return "Direct access to this link is not supported."
+    block_user(get_valid_login_session(), username_to_block)
+    return "User " + username_to_block + " is blocked"
+
+
 @app.route("/v1/raw_data")
 def raw_data():
     data = retrieve_json("data")

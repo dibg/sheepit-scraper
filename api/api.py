@@ -52,15 +52,6 @@ def projects_by(username, last_hours=None):
     return jsonify_dict(projects)
 
 
-@app.route("/v1/block")
-def block():
-    username_to_block = request.args.get('username')
-    if not username_to_block:
-        return "Direct access to this link is not supported."
-    block_user(get_valid_login_session(), username_to_block)
-    return "User " + username_to_block + " is blocked"
-
-
 @app.route("/v1/snapshot_to_db")
 def snapshot_to_db():
     snapshot = single_data_snapshot()
