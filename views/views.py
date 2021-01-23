@@ -10,9 +10,14 @@ PROJECTS_BY_URL = "/view_projects_by/"
 
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/view_all_available_routes")
+def available_routes():
     available_views = extract_routes_from_file("views/views.py")
     available_api_routes = extract_routes_from_file("api/api.py")
-    return render_template("index.html", available_views=available_views, available_api_routes=available_api_routes)
+    return render_template("available_routes.html", available_views=available_views, available_api_routes=available_api_routes)
 
 
 @app.route("/view_all_projects")
@@ -53,3 +58,8 @@ def render_projects(data, title):
                            block_url=BLOCK_URL,
                            visit_profile_url=VISIT_PROFILE_URL,
                            projects_by_url=PROJECTS_BY_URL)
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")

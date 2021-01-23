@@ -13,20 +13,20 @@ def create_session(login_url, headers, payload):
     return session
 
 
-def create_and_store_session():
+def create_and_store_session(store_filename="session"):
     try:
         session = create_session(POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD)
     except ConnectionRefusedError as cre:
         print(cre)
         sys.exit(1)
-    store_as_bin("session", session)
+    store_as_bin(store_filename, session)
     return session
 
 
-def get_valid_login_session():
+def get_valid_login_session(store_filename="session"):
     try:
-        session = retrieve_bin("session")
+        session = retrieve_bin(store_filename)
     except FileNotFoundError:
-        create_and_store_session()
-        session = retrieve_bin("session")
+        create_and_store_session(store_filename)
+        session = retrieve_bin(store_filename)
     return session

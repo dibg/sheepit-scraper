@@ -49,24 +49,55 @@ a:hover {
 }
 
 .navbar a {
-  float: left;
-  color: #bdbdbd;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    color: #bdbdbd;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline-block;
 }
 
 .navbar a:hover {
-  background-color: #c9aa88;
-  color: black;
+    background-color: #c9aa88;
+    color: black;
 }
 
 .navbar a.active {
-  background-color: #c9aa88;
-  color: white;
+    background-color: #c9aa88;
+    color: white;
 }
 
 .page {
     margin: 2rem;
+}
+
+.navleft {
+    float: left;
+}
+
+.navright {
+    float: right;
+}
+
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #393939;
+    box-sizing: border-box;
+    background-color: #2b323d;
+}
+
+input[type=submit] {
+    margin: 20px 0;
+}
+
+
+form {
+    margin: auto;
+    width: 240px;
+    border: 1px solid #393939;
+    padding: 20px;
 }
