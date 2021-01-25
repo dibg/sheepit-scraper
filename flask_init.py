@@ -1,5 +1,5 @@
 from flask import Flask
-from configuration.credentials import POSTGRESQL_URI
+from backend.configuration.credentials import POSTGRESQL_URI
 
 
 app = Flask(__name__)

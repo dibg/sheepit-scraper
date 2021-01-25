@@ -1,7 +1,7 @@
 import sys
 import requests
-from configuration.scraper_config import POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD
-from helper_functions.storage import store_as_bin, retrieve_bin
+from backend.sheepit_api.configuration import POST_URL, LOGIN_HEADERS, LOGIN_PAYLOAD
+from backend.utils.storage import store_as_bin, retrieve_bin
 
 
 def create_session(login_url, headers, payload):

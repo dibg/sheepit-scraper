@@ -1,4 +1,4 @@
-from configuration.credentials import USERNAME, PASSWORD
+from backend.configuration.credentials import USERNAME, PASSWORD
 
 URL = "https://www.sheepit-renderfarm.com/"
 POST_URL = URL + "ajax.php"
@@ -28,6 +28,3 @@ BLOCK_PAYLOAD = {
 REFERER_FRAMES = URL + "index.php?show=frames"
 FRAMES_HEADERS = {"User-Agent": USER_AGENT, "Origin": URL, "Referer": REFERER_FRAMES}
 
-STORAGE_PATH = "./data/"
-
-SCRAPING_INTERVAL_MINUTES = 15

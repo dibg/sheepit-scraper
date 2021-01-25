@@ -2,13 +2,11 @@ from flask import jsonify, request
 from sqlalchemy import and_
 from datetime import datetime, timedelta
 from flask_init import app
-from helper_functions.database import Data, db
-from helper_functions.database import insert_data
-from helper_functions.list_modifiers import jsonify_dict
-from helper_functions.storage import retrieve_json, load_or_if_not_exits_create_json_file
-from scraper.block import block_user
-from scraper.scraper import scrape_current_data
-from scraper.session import get_valid_login_session
+from backend.model.database import Data, db
+from backend.model.database import insert_data
+from backend.utils.list_modifiers import jsonify_dict
+from backend.sheepit_api.scraper import scrape_current_data
+from backend.sheepit_api.session import get_valid_login_session
 
 
 @app.route("/v1/snapshot")

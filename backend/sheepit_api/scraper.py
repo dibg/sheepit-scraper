@@ -1,8 +1,7 @@
 from bs4 import BeautifulSoup as bs
-from configuration.scraper_config import PROJECT_URL, FAILED_LOGIN_MESSAGE
-from helper_functions.storage import store_as_bin
-from scraper.extract import Extract
-from scraper.session import create_and_store_session
+from backend.sheepit_api.configuration import PROJECT_URL, FAILED_LOGIN_MESSAGE
+from backend.sheepit_api.extract import Extract
+from backend.sheepit_api.session import create_and_store_session
 
 
 def scrape_data(session):

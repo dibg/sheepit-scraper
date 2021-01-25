@@ -2,7 +2,7 @@ import json
 import pickle
 import sys
 import os
-from configuration.scraper_config import STORAGE_PATH
+from backend.configuration.configuration import STORAGE_PATH
 
 
 def create_path_if_not_exist(path):

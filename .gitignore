@@ -1,5 +1,5 @@
-configuration/credentials.py
-data/*
+backend/configuration/credentials.py
+backend/data/*
 notes/*
 .idea
 *__pycache__*
