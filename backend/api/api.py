@@ -1,18 +1,19 @@
 from flask import jsonify, request
 from sqlalchemy import and_
 from datetime import datetime, timedelta
+from backend.configuration.credentials import USERNAME, PASSWORD
 from flask_init import app
 from backend.model.database import Data, db
 from backend.model.database import insert_data
 from backend.utils.list_modifiers import jsonify_dict
-from backend.sheepit_api.scraper import scrape_current_data
-from backend.sheepit_api.session import get_valid_login_session
+from backend.sheepit_api.scraper import get_current_projects
+from backend.sheepit_api.auth import get_session
 
 
 @app.route("/v1/snapshot")
 def single_data_snapshot():
-    session = get_valid_login_session()
-    current_data = scrape_current_data(session)
+    session = get_session(USERNAME, PASSWORD)
+    current_data = get_current_projects(session)
     return jsonify(current_data)
 
 

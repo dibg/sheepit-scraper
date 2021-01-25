@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup as bs
-from backend.sheepit_api.configuration import PROJECT_URL, FAILED_LOGIN_MESSAGE
+from backend.sheepit_api.configuration.configuration import PROJECT_URL, FAILED_LOGIN_MESSAGE
 from backend.sheepit_api.extract import Extract
-from backend.sheepit_api.session import create_and_store_session
+from backend.sheepit_api.auth import create_and_store_session
 
 
-def scrape_data(session):
+def get_projects(session):
     project_page = session.get(PROJECT_URL).text
     soup = bs(project_page, "html.parser")
     tr = soup.find_all("tr")
@@ -31,11 +31,11 @@ def stop_if_login_is_unsuccessful(soup, tr):
             raise ConnectionRefusedError("Session is not valid: {}".format(h4))
 
 
-def scrape_current_data(session):
+def get_current_projects(session):
     try:
-        current_data = scrape_data(session)
+        current_data = get_projects(session)
     except ConnectionRefusedError:
         print("Creating new session")
         session = create_and_store_session()
-        current_data = scrape_data(session)
+        current_data = get_projects(session)
     return current_data

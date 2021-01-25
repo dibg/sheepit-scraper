@@ -1,6 +1,6 @@
 from flask_init import app
 from flask import render_template
-from backend.sheepit_api.configuration import VISIT_PROFILE_URL
+from backend.sheepit_api.configuration.configuration import VISIT_PROFILE_URL
 from backend.api.api import single_data_snapshot, db_data, projects_per_user, projects_by
 from backend.utils.file_filter import extract_routes_from_file
 
@@ -16,7 +16,7 @@ def index():
 @app.route("/all_available_routes")
 def available_routes():
     available_views = extract_routes_from_file("views/views.py")
-    available_api_routes = extract_routes_from_file("api/api.py")
+    available_api_routes = extract_routes_from_file("backend/api/api.py")
     return render_template("available_routes.html", available_views=available_views, available_api_routes=available_api_routes)
 
 

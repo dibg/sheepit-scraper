@@ -2,7 +2,7 @@
 def block():
     username_to_block = request.args.get('username')
     if not username_to_block:
-        return "Direct access to this link is not supported."
+        return "username is not provided"
     block_user(get_valid_login_session(), username_to_block)
     return "User " + username_to_block + " is blocked"
 
